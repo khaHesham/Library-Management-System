@@ -6,6 +6,9 @@ import com.librarymanagement.API.mappers.BookMapper;
 import com.librarymanagement.API.repository.BookRepository;
 import com.librarymanagement.API.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,6 +28,7 @@ public class BookServiceImpl implements BookService {
         return bookMapper.toDTOs(books);
     }
     @Override
+    @Cacheable(value = "books", key = "#id")
     public BookDTO getBookById(Long id) {
         Book book = bookRepository.findById(id).orElse(null);
         return bookMapper.toDTO(book);
@@ -37,6 +41,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    @CachePut(value = "books", key = "#id")
     public BookDTO updateBook(Long id, BookDTO book) {
         if(!bookRepository.existsById(id)){
             return null;
@@ -46,6 +51,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    @CacheEvict(value = "books", key = "#id")
     public boolean deleteBook(Long id) {
         if(!bookRepository.existsById(id)){
             return false;

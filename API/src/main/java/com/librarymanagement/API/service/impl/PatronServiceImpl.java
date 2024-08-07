@@ -6,6 +6,9 @@ import com.librarymanagement.API.mappers.PatronMapper;
 import com.librarymanagement.API.repository.PatronRepository;
 import com.librarymanagement.API.service.PatronService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,6 +28,7 @@ public class PatronServiceImpl implements PatronService {
     }
 
     @Override
+    @Cacheable(value = "patrons", key = "#id")
     public PatronDTO getPatronById(Long id) {
         Patron patron = patronRepository.findById(id).orElse(null);
         return patronMapper.toDTO(patron);
@@ -37,6 +41,7 @@ public class PatronServiceImpl implements PatronService {
     }
 
     @Override
+    @CachePut(value = "patrons", key = "#id")
     public PatronDTO updatePatron(Long id, PatronDTO patronDto) {
         if(!patronRepository.existsById(id)){
             return null;
@@ -46,6 +51,7 @@ public class PatronServiceImpl implements PatronService {
     }
 
     @Override
+    @CacheEvict(value = "patrons", key = "#id")
     public boolean deletePatron(Long id) {
         if(!patronRepository.existsById(id)){
             return false;
