@@ -1,9 +1,9 @@
 package com.librarymanagement.API.controller;
 
 import com.librarymanagement.API.dto.BookDTO;
-import com.librarymanagement.API.exception.BookNotFoundException;
+import com.librarymanagement.API.exception.book.BookNotFoundException;
 import com.librarymanagement.API.exception.GlobalExceptionHandler;
-import com.librarymanagement.API.exception.InvalidBookException;
+import com.librarymanagement.API.exception.book.InvalidBookException;
 import com.librarymanagement.API.service.BookService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

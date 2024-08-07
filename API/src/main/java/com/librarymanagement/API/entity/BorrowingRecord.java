@@ -25,6 +25,6 @@ public class BorrowingRecord {
     @Column(name = "borrow_date", nullable = false)
     private String borrowDate;
 
-    @Column(name = "return_date", nullable = false)
+    @Column(name = "return_date")
     private String returnDate;
 }

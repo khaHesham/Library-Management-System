@@ -4,4 +4,5 @@ import com.librarymanagement.API.entity.BorrowingRecord;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface BorrowingRecordRepository extends JpaRepository<BorrowingRecord, Long> {
+    BorrowingRecord findByBookIdAndReturnDateIsNull(Long bookId);
 }
