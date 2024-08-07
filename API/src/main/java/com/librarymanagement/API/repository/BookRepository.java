@@ -1,4 +1,12 @@
 package com.librarymanagement.API.repository;
 
-public interface BookRepository extends org.springframework.data.jpa.repository.JpaRepository<com.librarymanagement.API.entity.Book, java.lang.Long> {
+import com.librarymanagement.API.entity.Book;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+@Repository
+public interface BookRepository extends JpaRepository<Book, Long> {
+    List<Book> findByTitle(String title);
 }

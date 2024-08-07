@@ -1,4 +1,7 @@
 package com.librarymanagement.API.repository;
 
-public interface BorrowingRecordRepository extends org.springframework.data.jpa.repository.JpaRepository<com.librarymanagement.API.entity.BorrowingRecord, java.lang.Long> {
+import com.librarymanagement.API.entity.BorrowingRecord;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface BorrowingRecordRepository extends JpaRepository<BorrowingRecord, Long> {
 }
