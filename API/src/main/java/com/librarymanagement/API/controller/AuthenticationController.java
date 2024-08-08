@@ -1,6 +1,7 @@
 package com.librarymanagement.API.controller;
 
 import com.librarymanagement.API.dto.AdminDTO;
+import com.librarymanagement.API.dto.auth.AuthenticationRequest;
 import com.librarymanagement.API.dto.auth.AuthenticationResponse;
 import com.librarymanagement.API.exception.GlobalExceptionHandler;
 import com.librarymanagement.API.service.AuthenticationService;
@@ -30,7 +31,7 @@ public class AuthenticationController extends GlobalExceptionHandler {
 
     @PostMapping("/authenticate")
     public ResponseEntity<AuthenticationResponse> authenticate(
-           @Valid @RequestBody AdminDTO request
+           @Valid @RequestBody AuthenticationRequest request
     ) {
         try {
             AuthenticationResponse response = authenticationService.authenticate(request);

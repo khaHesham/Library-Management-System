@@ -1,6 +1,7 @@
 package com.librarymanagement.API.service.impl;
 
 import com.librarymanagement.API.dto.AdminDTO;
+import com.librarymanagement.API.dto.auth.AuthenticationRequest;
 import com.librarymanagement.API.dto.auth.AuthenticationResponse;
 import com.librarymanagement.API.exception.admin.AdminAlreadyExistsException;
 import com.librarymanagement.API.exception.admin.AdminNotFoundException;
@@ -46,15 +47,15 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     }
 
     @Override
-    public AuthenticationResponse authenticate(AdminDTO adminDTO) {
+    public AuthenticationResponse authenticate(AuthenticationRequest request) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        adminDTO.getUsername(),
-                        adminDTO.getPassword()
+                        request.getUsername(),
+                        request.getPassword()
                 )
         );
 
-        Admin admin = adminRepository.findAdminByUsername(adminDTO.getUsername())
+        Admin admin = adminRepository.findAdminByUsername(request.getUsername())
                 .orElseThrow(() -> new AdminNotFoundException("Admin not found"));
 
         jwtToken = jwtService.generateToken(admin);
