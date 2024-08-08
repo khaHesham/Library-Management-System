@@ -4,7 +4,7 @@ import com.librarymanagement.API.dto.BorrowingRecordDTO;
 import com.librarymanagement.API.entity.Book;
 import com.librarymanagement.API.entity.BorrowingRecord;
 import com.librarymanagement.API.entity.Patron;
-import com.librarymanagement.API.exception.BookAlreadyBorrowedException;
+import com.librarymanagement.API.exception.book.BookAlreadyBorrowedException;
 import com.librarymanagement.API.exception.book.BookNotFoundException;
 import com.librarymanagement.API.exception.patron.PatronNotFoundException;
 import com.librarymanagement.API.mappers.BorrowingRecordMapper;
