@@ -189,6 +189,10 @@ Run the script:
 - **POST /api/borrow/{bookId}/patron/{patronId}**: Allow a patron to borrow a book.
 - **PUT /api/return/{bookId}/patron/{patronId}**: Record the return of a borrowed book by a patron.
 
+## ER Diagram
+
+![1723121698628](image/README/1723121698628.png)
+
 ## Testing the API
 
 You can test the API using tools like [Postman](https://www.postman.com/) or [cURL](https://curl.se/).
