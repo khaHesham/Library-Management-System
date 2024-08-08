@@ -1,0 +1,324 @@
+openapi: "3.0.3"
+info:
+  title: "Library Management API"
+  description: " Library Management System API. The system should allow librarians to manage books, patrons, and borrowing records."
+  version: "1.0.0"
+servers:
+  - url: "https://API"
+paths:
+  /api/books/{id}:
+    put:
+      summary: "PUT api/books/{id}"
+      operationId: "updateBook"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          schema:
+            type: "integer"
+            format: "int64"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BookDTO"
+        required: true
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BookDTO"
+    delete:
+      summary: "DELETE api/books/{id}"
+      operationId: "deleteBook"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          schema:
+            type: "integer"
+            format: "int64"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Void"
+    get:
+      summary: "GET api/books/{id}"
+      operationId: "getBookById"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          schema:
+            type: "integer"
+            format: "int64"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BookDTO"
+  /api/books:
+    post:
+      summary: "POST api/books"
+      operationId: "addBook"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BookDTO"
+        required: true
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BookDTO"
+    get:
+      summary: "GET api/books"
+      operationId: "getAllBooks"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/BookDTO"
+  /api/patrons/{id}:
+    put:
+      summary: "PUT api/patrons/{id}"
+      operationId: "updatePatron"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          schema:
+            type: "integer"
+            format: "int64"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PatronDTO"
+        required: true
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/PatronDTO"
+    delete:
+      summary: "DELETE api/patrons/{id}"
+      operationId: "deletePatron"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          schema:
+            type: "integer"
+            format: "int64"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Void"
+    get:
+      summary: "GET api/patrons/{id}"
+      operationId: "getPatronById"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          schema:
+            type: "integer"
+            format: "int64"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/PatronDTO"
+  /api/patrons:
+    post:
+      summary: "POST api/patrons"
+      operationId: "addPatron"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PatronDTO"
+        required: true
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/PatronDTO"
+    get:
+      summary: "GET api/patrons"
+      operationId: "getAllPatrons"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/PatronDTO"
+  /api/return/{bookId}/patron/{patronId}:
+    put:
+      summary: "PUT api/return/{bookId}/patron/{patronId}"
+      operationId: "returnBook"
+      parameters:
+        - name: "bookId"
+          in: "path"
+          required: true
+          schema:
+            type: "integer"
+            format: "int64"
+        - name: "patronId"
+          in: "path"
+          required: true
+          schema:
+            type: "integer"
+            format: "int64"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BorrowingRecordDTO"
+  /api/borrow/{bookId}/patron/{patronId}:
+    post:
+      summary: "POST api/borrow/{bookId}/patron/{patronId}"
+      operationId: "borrowBook"
+      parameters:
+        - name: "bookId"
+          in: "path"
+          required: true
+          schema:
+            type: "integer"
+            format: "int64"
+        - name: "patronId"
+          in: "path"
+          required: true
+          schema:
+            type: "integer"
+            format: "int64"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BorrowingRecordDTO"
+  /api/auth/register:
+    post:
+      summary: "POST api/auth/register"
+      operationId: "register"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AdminDTO"
+        required: true
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/AuthenticationResponse"
+  /api/auth/authenticate:
+    post:
+      summary: "POST api/auth/authenticate"
+      operationId: "authenticate"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AuthenticationRequest"
+        required: true
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/AuthenticationResponse"
+components:
+  schemas:
+    BookDTO:
+      type: "object"
+      properties:
+        title:
+          type: "string"
+        author:
+          type: "string"
+        publicationYear:
+          type: "integer"
+          format: "int32"
+        isbn:
+          type: "string"
+    Void:
+      type: "object"
+      properties: { }
+    PatronDTO:
+      type: "object"
+      properties:
+        name:
+          type: "string"
+        email:
+          type: "string"
+        phoneNumber:
+          type: "string"
+        address:
+          type: "string"
+        city:
+          type: "string"
+        state:
+          type: "string"
+        zipCode:
+          type: "string"
+    BorrowingRecordDTO:
+      type: "object"
+      properties:
+        borrowDate:
+          type: "string"
+        returnDate:
+          type: "string"
+    AdminDTO:
+      type: "object"
+      properties:
+        username:
+          type: "string"
+        password:
+          type: "string"
+    AuthenticationResponse:
+      type: "object"
+      properties:
+        token:
+          type: "string"
+    AuthenticationRequest:
+      type: "object"
+      properties:
+        username:
+          type: "string"
+        password:
+          type: "string"
